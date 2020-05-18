@@ -6,6 +6,9 @@ package com.elasticsearch.poc.service;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+
+import org.elasticsearch.index.query.MoreLikeThisQueryBuilder.Item;
+
 import com.elasticsearch.poc.model.Book;
 
 /**
@@ -27,5 +30,7 @@ public interface BookService {
 	public List<Map<String, Object>> searchBooksByKey(String field, String key);
 
 	public List<Map<String, Object>> sortBooksByOrder(String field, String order);
+	
+	public List<Map<String, Object>> searchBooksByLikeValue(String[] value);
 
 }

@@ -34,6 +34,8 @@ public interface ServiceConstants {
 	String LIBRARY_DELETE_SUCCESS = "Library deleted successfully";
 	String LIBRARY_DELETE_FAILURE = "Oops something went wrong! Either Library not found or database is down.";
 	
+	String SPECIAL_SERVICE_PATH = "/special";
+	
 
 	public enum Status {
 		CREATED, UPDATED, DELETED, NOT_FOUND, NOOP;

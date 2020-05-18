@@ -182,6 +182,4 @@ public class LibraryServiceImpl implements LibraryService{
 		return sortResults;
 	}
 	
-	
-
 }

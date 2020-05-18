@@ -23,6 +23,7 @@ import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.inject.Inject;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.query.MoreLikeThisQueryBuilder.Item;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.sort.FieldSortBuilder;
 import org.elasticsearch.search.sort.SortOrder;
@@ -227,6 +228,40 @@ public class BookRepositoryImpl implements BookRepository {
 		}
 		return searchResult;
 
+	}
+	
+	
+	@Override
+	public Optional<SearchResponse> searchBooksByLikeValue(String[] texts) {
+		// TODO Auto-generated method stub
+		Optional<SearchResponse> searchResults = Optional.empty();
+		SearchRequest searchRequest = new SearchRequest();
+		SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+		
+		String[] fields = {"bookName", "author"};               
+		//String[] texts = {"text like this one"};
+		
+		searchRequest.source(searchSourceBuilder.query(QueryBuilders.moreLikeThisQuery(fields, texts, null)
+			    .minTermFreq(1) 
+			    .minDocFreq(1)
+			    .maxQueryTerms(12)));
+		try {
+			SearchResponse searchResponse = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
+			searchResults = Optional.of(searchResponse);
+
+		} catch (ElasticsearchException e) {
+			e.getDetailedMessage();
+			e.printStackTrace();
+			return searchResults;
+		} catch (java.io.IOException ex) {
+			ex.getLocalizedMessage();
+			ex.printStackTrace();
+			return searchResults;
+		} catch (Exception ex) {
+			ex.getLocalizedMessage();
+			return searchResults;
+		}
+		return searchResults;
 	}
 
 }

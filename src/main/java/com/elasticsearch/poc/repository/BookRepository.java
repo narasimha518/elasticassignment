@@ -9,6 +9,7 @@ import java.util.Optional;
 import org.elasticsearch.action.DocWriteResponse.Result;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.index.query.MoreLikeThisQueryBuilder.Item;
 import org.springframework.stereotype.Repository;
 
 import com.elasticsearch.poc.model.Book;
@@ -33,4 +34,6 @@ public interface BookRepository {
 	public Optional<SearchResponse> searchBooksByKey(String field, String key);
 
 	public Optional<SearchResponse> sortBooksByOrder(String field, String order);
+	
+	public Optional<SearchResponse> searchBooksByLikeValue(String[] value);
 }

@@ -14,6 +14,7 @@ import org.elasticsearch.action.DocWriteResponse.Result;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.common.inject.Inject;
+import org.elasticsearch.index.query.MoreLikeThisQueryBuilder.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.elasticsearch.poc.constants.ServiceConstants;
@@ -125,6 +126,16 @@ public class BookServiceImpl implements BookService {
 		response.get().getHits().iterator().forEachRemaining(c);
 		return sortResults;
 
+	}
+	
+	@Override
+	public List<Map<String, Object>> searchBooksByLikeValue(String[] value) {
+		// TODO Auto-generated method stub
+		List<Map<String, Object>> searchResults = new ArrayList<>();
+		Optional<SearchResponse> response = bookRepository.searchBooksByLikeValue(value);
+		Consumer<SearchHit> c = input -> searchResults.add(input.getSourceAsMap());
+		response.get().getHits().iterator().forEachRemaining(c);
+		return searchResults;
 	}
 
 }
