@@ -20,7 +20,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>11</java.version>
-		<version.elasticsearch>7.6.2</version.elasticsearch>
+		<version.elasticsearch>7.13.3</version.elasticsearch>
 	</properties>
 
 	<dependencies>
